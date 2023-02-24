@@ -1,0 +1,97 @@
+.backgroud-img {
+	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+		url("/img/bg.jpg");
+	background-size: cover;
+	width: 100%;
+	height: 90vh;
+	color: white;
+}
+
+.primaryBg {
+	background-color: #2ecc71 !important;
+}
+
+.formBg {
+	background-color: #ededed !important;
+}
+
+.formColor {
+	color: #2ecc71 !important;
+}
+#mytextarea{
+	height: 400px;
+}
+
+
+/* sidebar */
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+}
+ 
+.sidebar a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: rgb(66, 132, 38);
+  color: white;
+}
+
+div.content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  margin-top:56px;
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    margin-top:56px;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar{
+  	margin-top:56px;
+  }
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+
+
+.search-container{
+	position: relative;
+	margin: 10px 0;
+}
+
+
+.search-result{
+	position: absolute;
+	z-index: 99999;
+	background-color: white;
+	width: 100%;
+	padding: 10px;
+	border: 1px solid gray;
+	display:none; 
+}
+

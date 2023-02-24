@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}">Add New Contact</title>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+</head>
+<body>
+	<section>
+		<div class="container mt-4">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<form action="#" th:action="@{/user/addContact}" method="post"
+						th:object="${contact}" enctype="multipart/form-data">
+						<div class="card">
+							<div class="card-header text-white primaryBg text-center">
+								<span class="fa fa-user-plus fa-3x"></span>
+								<h1>Add New Contact</h1>
+								<div th:if="${session.message}">
+									<div th:classappend="${session.message.type}" class="alert"
+										role="alert">
+
+										<span th:text="${session.message.content}"></span>
+									</div>
+
+
+									<div
+										th:text="${@removeMessage.removeVerificationMessageFromSession()}"></div>
+								</div>
+							</div>
+							<div class="card-body">
+				<!-- enter name -->
+								<div class="input-group mb-3 mr-sm-2">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<b>+</b>
+										</div>
+									</div>
+									<input required type="text" class="form-control" name="name"
+										id="name" placeholder="Enter Name" th:value="${contact.name}" />
+								</div>
+					<!-- nick name -->
+								<div class="input-group mb-3 mr-sm-2">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<b>+</b>
+										</div>
+									</div>
+									<input type="text" class="form-control" name="nickName"
+										id="nickname" placeholder="Enter Nick Name"
+										th:value="${contact.nickName}">
+								</div>
+					<!-- enter email -->
+								<div class="input-group mb-3 mr-sm-2">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<b>@</b>
+										</div>
+									</div>
+									<input required type="email" name="email"
+										placeholder="Enter Email" class="form-control"
+										th:value="${contact.email}" />
+								</div>
+					<!-- enter phone -->
+								<div class="input-group mb-3 mr-sm-2">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<b><i class="fa fa-phone"></i></b>
+										</div>
+									</div>
+									<input required type="number" name="phone"
+										placeholder="Enter Phone" class="form-control"
+										th:value="${contact.phone}" />
+								</div>
+
+					<!-- enter work -->
+								<div class="input-group mb-3 mr-sm-2">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<b><i class="fa fa-briefcase"></i></b>
+										</div>
+									</div>
+									<input type="text" name="work" placeholder="Enter Profession"
+										class="form-control" th:value="${contact.work}" />
+								</div>
+					<!-- select profile pic -->
+								<div class="input-group mb-3 mr-sm-2">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<b><i class="fa fa-file"></i></b>
+										</div>
+									</div>
+									<input type="file" name="profilePic" class="form-control" />
+								</div>
+								<!-- enter description -->
+								<div class="form-group">
+									<textarea id="mytextarea" rows="5" cols="60" name="description"
+										placeholder="Write Something about Your Contact...."
+										class="form-control" th:text="${contact.description}"></textarea>
+								</div>
+							</div>
+							<div class="text-center card-footer primaryBg">
+								<button type="submit" class="btn btn-success">Add
+									Contact</button>
+								<button type="reset" class="btn btn-warning">Reset</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		
+		<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+		<script>
+	      tinymce.init({
+	        selector: '#mytextarea'
+	      });
+	    </script>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			$('.item').removeClass('active');
+			$('#add-item').addClass('active');
+		});
+	</script>
+	</section>
+
+</body>
+</html>

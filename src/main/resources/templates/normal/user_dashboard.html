@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}">User Dashboard</title>
+</head>
+<body>
+	<section>
+		<div th:if="${session.message}">
+			<div th:classappend="${session.message.type}" class="alert"
+				role="alert">
+				<span th:text="${session.message.content}"></span>
+
+			</div>
+
+
+			<div
+				th:text="${@removeMessage.removeVerificationMessageFromSession()}"></div>
+		</div>
+		<div class="container">
+			<div class="card m-3 p-4">
+				<div class="card-body">
+					<div class="container text-center">
+						<img th:src="@{/img/logo.png}" height="200px" width="200px"
+							style="border-radius: 50%;" class="" alt="" />
+					</div>
+				</div>
+				<h1 class="text-center mt-2 text-sencondary font-italic">Start
+					Adding Your Contacts on Your Portal...</h1>
+				<a th:href="@{/user/add-contact}" class="btn btn-primary d-block">
+					Add New Contact </a>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>

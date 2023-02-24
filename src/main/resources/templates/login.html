@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}">Login Page</title>
+</head>
+<body>
+	<section>
+		<div class="container mt-5 p-3">
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div class="card formBg">
+						<h1 class="text-center p-2 formColor">Login</h1>
+						<div role="alert" th:if="${param.error}" class="alert alert-danger">
+							Invalid UserName or Password
+						</div>
+						<div role="alert" th:if="${param.logout}" class="alert alert-success">
+							You have been Logged out Successfully.
+						</div>
+						<form action="" th:action="@{/dologin}" method="post">
+							<div class="card-body">
+								<div class="input-group mb-3 mr-sm-2">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<b>@</b>
+										</div>
+									</div>
+									<input type="email" name="username" placeholder="Enter Email"
+										class="form-control" required />
+								</div>
+								<div class="input-group mb-3 mr-sm-2">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<i class="fa-solid fa-key"></i>
+										</div>
+									</div>
+									<input type="password" name="password"
+										placeholder="Enter Password" class="form-control" required />
+								</div>
+								<div class="text-center">
+									<p>Not Register? <a th:href="@{/signup}">Register Here</a></p>
+									<button type="submit" class="btn btn-success">Login</button>
+									<button type="reset" class="btn btn-warning">Reset</button>
+								</div>
+							<div class="container text-center">
+								<a th:href="@{/forget}">forget Password?</a>
+							</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>

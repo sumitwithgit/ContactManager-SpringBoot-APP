@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}">Login Page</title>
+</head>
+<body>
+	<section>
+		<div class="container mt-5 p-3">
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div class="card formBg">
+						<h1 class="text-center p-2 formColor">Forget Password Form</h1>
+						<div th:if="${session.message}">
+							<div th:classappend="${session.message.type}" class="alert"
+								role="alert">
+								<span th:text="${session.message.content}"></span>
+
+							</div>
+
+
+							<div
+								th:text="${@removeMessage.removeVerificationMessageFromSession()}"></div>
+						</div>
+						<div class="container p-4">
+							<form th:action="@{/sendOTP}" method="post">
+								<div class="form-group">
+									<input required type="email" name="email" class="form-control"
+										placeholder="Enter Your Registered Email" />
+								</div>
+								<div class="container text-center">
+									<button type="submit" class="btn btn-primary">Send OTP</button>
+								</div>
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>

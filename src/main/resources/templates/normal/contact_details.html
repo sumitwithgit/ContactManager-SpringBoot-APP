@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}"></title>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+</head>
+<body>
+	<section>
+		<h1 class="text-center">Your Details</h1>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10 offset-md-1">
+					<div class="card formBg">
+						
+						<div class="card-body text-center">
+							<img th:src="@{'/img/'+${contact.image}}" height="150px"
+								width="150px" style="border-radius: 50%;" alt="" />
+							<h2 th:text="${contact.name}"></h2>
+							(<span th:text="${contact.nickName}"></span>)
+							<hr />
+							<table class="table">
+								<tbody th:each="e:${contact}">
+									<tr>
+										<th>Name</th>
+										<td th:text="${contact.name}"></td>
+									</tr>
+									<tr>
+										<th>Email</th>
+										<td th:text="${contact.email}"></td>
+									</tr>
+									<tr>
+										<th>Phone</th>
+										<td th:text="${contact.phone}"></td>
+									</tr>
+									<tr>
+										<th>Profession</th>
+										<td th:text="${contact.work}"></td>
+									</tr>
+									<tr>
+										<th>About Contact</th>
+										<td th:utext="${contact.description}"></td>
+									</tr>
+
+								</tbody>
+							</table>
+
+							<div class="container">
+								<a th:href="@{'/user/updateUser/'+${contact.cId}}" class="btn btn-primary">Update</a>
+								<a th:href="@{'/user/deleteUser/'+${contact.cId}}" class="btn btn-danger">Delete</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>

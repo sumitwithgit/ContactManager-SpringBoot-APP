@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}"></title>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+</head>
+<body>
+	<section>
+		<h2 class="text-center">View All Contacts</h2>
+		<div th:if="${session.message}">
+			<div th:classappend="${session.message.type}" class="alert"
+				role="alert">
+				<span th:text="${session.message.content}"></span>
+
+			</div>
+			<div
+				th:text="${@removeMessage.removeVerificationMessageFromSession()}"></div>
+		</div>
+
+		<div class="search-container mt-2">
+			<input onkeyup="search()" type="search" class="form-control search"
+				placeholder="Search Your Contact" id="search-input" />
+
+			<div class="search-result"></div>
+
+		</div>
+
+		<div class="container ">
+			<div class="row">
+
+				<div class="table-responsive">
+					<table class="table text-center">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Name</th>
+								<th scope="col">Email</th>
+								<th scope="col">Phone</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="e:${contact}">
+								<th scope="row"><span th:text="${e.cId}"></span></th>
+								<td><img th:src="@{'/img/'+${e.image}}" height="30px"
+									width="30px" style="border-radius: 50%;" alt="" /> <span
+									th:text="${e.name}"></span></td>
+								<td><a th:href="@{'/user/contact/'+${e.cId}}"><span
+										th:text="${e.email}"></span></a></td>
+								<td><span th:text="${e.phone}"></span></td>
+								<td><a th:href="@{'/user/updateUser/'+${e.cId}}"
+									class="btn btn-primary">Update</a> <a
+									th:href="@{'/user/deleteUser/'+${e.cId}}"
+									class="btn btn-danger">Delete</a></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- pagination -->
+					<nav aria-label="Page navigation example">
+						<ul class="pagination">
+							<li th:if="${currentPage!=0}" class="page-item"><a href="#"
+								th:href="@{'/user/viewContacts/'+${currentPage-1}}"
+								class="page-link">Previous</a></li>
+							<li th:classappend="${currentPage==e-1?'active':''}"
+								th:each="e:${#numbers.sequence(1,totalPages)}" class="page-item"><a
+								href="#" th:href="@{'/user/viewContacts/'+${e-1}}"
+								class="page-link"><span th:text="${e}"></span></a></li>
+							<li th:if="${currentPage+1!=totalPages}" class="page-item"><a
+								href="#" th:href="@{'/user/viewContacts/'+${currentPage+1}}"
+								class="page-link">Next</a></li>
+						</ul>
+					</nav>
+
+
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			$('.item').removeClass('active');
+			$('#view-item').addClass('active');
+		});
+	</script>
+	<script type="text/javascript">
+		const search=()=>{
+			let query=$('#search-input').val();
+			if(query==""){
+				$(".search-result").hide();
+			}else{
+				let url=`http://localhost:9090/search/${query}`;
+				fetch(url).then((res)=>{
+					return res.json();
+				}).then((data)=>{
+					let text=`<div class="list-group">`
+								data.forEach((contact)=>{
+									text+=`<a href="/user/contact/${contact.cId}" class="list-group-item list-group-action">${contact.name}</a>`
+								})
+					text+=`</div>`;
+					
+					$(".search-result").html(text);
+					$(".search-result").show();
+					
+				})
+			}
+		}
+	</script>
+	</section>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script type="text/javascript">
+		function deleteContact(cId)
+		{
+			swal({
+				  title: "Are you sure?",
+				  text: "Once deleted, you will not be able to recover this imaginary file!",
+				  icon: "warning",
+				  buttons: true,
+				  dangerMode: true,
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+				    window.location="/user/deleteUser/"+cId;
+				  } else {
+				    swal("Your imaginary file is safe!");
+				  }
+			});
+		}
+		
+	</script>
+	
+</body>
+</html>
